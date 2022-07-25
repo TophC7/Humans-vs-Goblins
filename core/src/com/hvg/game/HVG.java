@@ -7,7 +7,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import java.security.PublicKey;
 
 public class HVG extends Game {
-
+    public static final short w = 160; // games width
+    public static final short h = 160; //games height
     public SpriteBatch batch;
     public BitmapFont font;
 

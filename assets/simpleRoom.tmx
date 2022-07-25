@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="10" height="10" tilewidth="16" tileheight="16" infinite="0" nextlayerid="5" nextobjectid="4">
+ <editorsettings>
+  <chunksize width="50" height="16"/>
+ </editorsettings>
+ <tileset firstgid="1" source="Tiny Dungeon.tsx"/>
+ <layer id="3" name="floor" width="10" height="10" locked="1">
+  <data encoding="csv">
+49,49,49,49,49,49,49,49,49,49,
+49,49,49,49,49,49,49,49,49,49,
+49,49,49,49,49,49,49,49,49,49,
+49,49,49,49,49,49,49,49,49,49,
+49,49,49,49,49,49,49,49,49,49,
+49,49,49,49,49,49,49,49,49,49,
+49,49,49,49,49,49,49,49,49,49,
+49,49,49,49,49,49,49,49,49,49,
+49,49,49,49,49,49,49,49,49,49,
+49,49,49,49,49,49,49,49,49,49
+</data>
+ </layer>
+ <layer id="2" name="Map" width="10" height="10">
+  <data encoding="csv">
+58,41,41,19,11,12,19,41,41,60,
+58,0,0,31,0,0,31,0,0,60,
+58,0,0,0,0,0,0,0,0,60,
+58,0,0,0,0,0,0,0,0,60,
+58,0,0,0,0,0,0,0,0,60,
+58,0,0,0,0,0,0,0,0,60,
+58,0,0,0,0,0,0,0,0,60,
+58,0,0,0,0,0,0,0,0,60,
+58,0,0,0,0,0,0,0,0,60,
+58,41,41,30,47,48,30,41,41,60
+</data>
+ </layer>
+</map>

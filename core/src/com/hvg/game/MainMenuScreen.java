@@ -13,7 +13,7 @@ public class MainMenuScreen implements Screen {
         this.game = game;
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(false,800, 400);
+        camera.setToOrtho(false,800, 800);
     }
 
     /**
@@ -31,7 +31,7 @@ public class MainMenuScreen implements Screen {
      */
     @Override
     public void render(float delta) {
-        ScreenUtils.clear(0, 0, 0.2f, 1);
+        ScreenUtils.clear(0, 0, 0, 1);
 
         camera.update();
         game.batch.setProjectionMatrix(camera.combined);
