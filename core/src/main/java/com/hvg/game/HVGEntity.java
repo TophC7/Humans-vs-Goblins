@@ -4,59 +4,102 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 
-public abstract class HVGEntity{
+public abstract class HVGEntity {
 
-    final Texture texture;
-    final Sprite sprite;
+    public final int MAX_HP;
+    public final Sprite SPRITE;
+    public final Rectangle RECT = new Rectangle(HVG.w / 2 - 16 / 2, HVG.h - 16, 16, 16);
+    private final Texture texture;
+    private final int attack;
+    private int health;
 
-    Rectangle hitBox = new Rectangle(HVG.w / 2 - 16 / 2, HVG.h - 16, 16, 16);
-
-    HVGEntity(Texture texture){
+    HVGEntity(Texture texture, int maxHealth, int attack) {
         this.texture = texture;
-        this.sprite = new Sprite(this.texture);
+        this.SPRITE = new Sprite(this.texture);
+
+        this.MAX_HP = maxHealth;
+        this.health = MAX_HP;
+        this.attack = attack;
     }
 
-    public void checkOutOfBounds(){
-        if (hitBox.x < 16)
-            hitBox.x = 16;
-        if (hitBox.x > HVG.w - 16  * 2)
-            hitBox.x = HVG.w - 16  * 2;
-        if (hitBox.y < 16)
-            hitBox.y = 16;
-        if (hitBox.y > HVG.h - 16 * 2)
-            hitBox.y = HVG.h - 16 * 2;
+    public void checkOutOfBounds() {
+        if (RECT.x < 16)
+            RECT.x = 16;
+        if (RECT.x > HVG.w - 16 * 2)
+            RECT.x = HVG.w - 16 * 2;
+        if (RECT.y < 16)
+            RECT.y = 16;
+        if (RECT.y > HVG.h - 16 * 2)
+            RECT.y = HVG.h - 16 * 2;
     }
 
-    public void setCoordinates(float x, float y){
-        hitBox.x = x;
-        hitBox.y = y;
+    public void setCoordinates(float x, float y) {
+        RECT.x = x;
+        RECT.y = y;
     }
 
-    public float getX(){
-        return hitBox.x;
+    public int getHealth() {
+        return health;
     }
-    public float getY(){
-        return hitBox.y;
+
+    public void setHealth(int health) {
+        this.health = health;
     }
-    public float getWidth(){
-        return hitBox.width;
+
+    public int getAttack() {
+        return attack;
     }
-    public float getHeight(){
-        return hitBox.height;
+
+    public void attack(HVGEntity entity) {
+        entity.health -= this.attack;
     }
-    public void setX(float x){
-        hitBox.x = x;
+
+    public float getX() {
+        return RECT.x;
     }
-    public void setY(float y){
-        hitBox.y = y;
+
+    public void setX(float x) {
+        RECT.x = x;
     }
-    public void setWidth(float width){
-        hitBox.width = width;
+
+    public float getY() {
+        return RECT.y;
     }
-    public void setHeight(float height){
-        hitBox.height = height;
+
+    public void setY(float y) {
+        RECT.y = y;
     }
-    public void dispose(){
+
+    public float getWidth() {
+        return RECT.width;
+    }
+
+    public void setWidth(float width) {
+        RECT.width = width;
+    }
+
+    public float getHeight() {
+        return RECT.height;
+    }
+
+    public void setHeight(float height) {
+        RECT.height = height;
+    }
+
+    public void dispose() {
         texture.dispose();
+    }
+
+    public void moveUp(){
+        RECT.y += 0.5;
+    }
+    public void moveDown(){
+        RECT.y -= 0.5;
+    }
+    public void moveRight(){
+        RECT.x += 0.5;
+    }
+    public void moveLeft(){
+        RECT.x -= 0.5;
     }
 }

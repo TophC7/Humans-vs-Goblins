@@ -9,11 +9,12 @@ public class MainMenuScreen implements Screen {
 
     final HVG game;
     OrthographicCamera camera;
+
     public MainMenuScreen(final HVG game) {
         this.game = game;
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(false,800, 800);
+        camera.setToOrtho(false, 800, 800);
     }
 
     /**
