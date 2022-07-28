@@ -20,6 +20,10 @@ public class HVG extends Game {
 
 	}
 
+	public void draw(HVGEntity entity){
+		batch.draw(entity.sprite, entity.getX(), entity.getY(), entity.getWidth(), entity.getHeight());
+	}
+
 	public void render(){
 		super.render();
 	}

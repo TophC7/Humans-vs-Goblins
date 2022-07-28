@@ -3,27 +3,22 @@ package com.hvg.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 public class GameScreen implements Screen {
 	final HVG game;
-
-	Texture playerTexture;
-	Sprite playerSprite;
+	final HVGEntity player = new Player();
+	final Array<HVGEntity> enemies = new Array<>();
 	TiledMap tiledMap;
 	TiledMapRenderer tiledMapRenderer;
 	OrthographicCamera camera;
-	Rectangle player;
-	Array<Rectangle> enemies;
+
 
 	public GameScreen(final HVG game) {
 		this.game = game;
@@ -36,17 +31,8 @@ public class GameScreen implements Screen {
 		tiledMap = new TmxMapLoader().load("simpleRoom.tmx");
 		tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
 
-		//gets players texture from file and applies it to player sprite
-		playerTexture = new Texture(Gdx.files.internal("Tiles/tile_0096.png"));
-		playerSprite = new Sprite(playerTexture);
-
-		//sets hit box for player basically
-		player = new Rectangle();
-		player.x = HVG.w / 2 - 16 / 2;
-		player.y = HVG.h - 16;
-		player.width = 16;
-		player.height = 16;
-
+		//test goblin
+		enemies.add(new Goblin());
 	}
 
 	@Override
@@ -69,7 +55,8 @@ public class GameScreen implements Screen {
 		//batch rendering
 		game.batch.begin();
 
-		game.batch.draw(playerSprite, player.x, player.y, player.width, player.height);
+		game.draw(player);
+		enemies.forEach(game::draw);
 
 		game.batch.end();
 
@@ -78,19 +65,12 @@ public class GameScreen implements Screen {
 			Vector3 touchPos = new Vector3();
 			touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
 			camera.unproject(touchPos);
-			player.x = touchPos.x - 16 / 2;
-			player.y = touchPos.y - 16 / 2;
+			player.setCoordinates(touchPos.x - 16 / 2, touchPos.y - 16 / 2);
 		}
 
-		//checks if player is out of bounds and fixed their position
-		if (player.x < 16)
-			player.x = 16;
-		if (player.x > HVG.w - 16  * 2)
-			player.x = HVG.w - 16  * 2;
-		if (player.y < 16)
-			player.y = 16;
-		if (player.y > HVG.h - 16 * 2)
-			player.y = HVG.h - 16 * 2;
+		//checks if entity is out of bounds and fix their position
+		player.checkOutOfBounds();
+		enemies.forEach(HVGEntity::checkOutOfBounds);
 
 	}
 
@@ -119,7 +99,8 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void dispose() {
-		playerTexture.dispose();
+		player.dispose();
+		enemies.forEach(HVGEntity::dispose);
 		tiledMap.dispose();
 
 	}
